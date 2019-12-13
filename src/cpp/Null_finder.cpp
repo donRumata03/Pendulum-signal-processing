@@ -104,6 +104,17 @@ vector<pair<double, double>> execute_function(vector<pair<double, double>> &poin
 }
 
 
+double find_average(vector<pair<double, double>> &points, int beg, int end){
+    double sum = 0;
+    double index_sum = 0;
+    for(int i = beg; i < end; i++){
+        sum += points.at(i).second;
+        index_sum += 1;
+    }
+    return sum / index_sum;
+}
+
+
 double get_period(char* path){
     vector<pair<double, double>> points = read_file(path);
     points = execute_function(points);
@@ -115,10 +126,30 @@ double get_period(char* path){
     
     
     clear_plot();
-    add_to_plot(zeros);
+    add_to_plot(derivative);
+    add_to_plot(points);
     show_plot();
 
     double average_period = (zeros.at(zeros.size() - 1) - zeros.at(0)) / (zeros.size() - 1);
     return average_period;
 }
 
+
+pair<double, double> get_period_and_angle(char* path){
+    vector<pair<double, double>> points = read_file(path);
+    points = execute_function(points);
+    
+    vector<pair<double, double>> derivative = count_all_derivatives(points, 100);
+    vector<double> zeros = find_zeros(derivative);
+
+    double average_period = (zeros.at(zeros.size() - 1) - zeros.at(0)) / (zeros.size() - 1);
+    double last_index = -1;
+    if (zeros.size() & 1){ // Odd
+        last_index = zeros.at(zeros.size() - 2);
+    }
+    else{
+        last_index = zeros.at(zeros.size() - 1);
+    }
+    double angle = find_average(points, zeros.at(0), last_index);
+    return pair<double, double> (angle, average_period);
+}
