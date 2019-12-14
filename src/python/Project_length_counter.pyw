@@ -103,13 +103,13 @@ def store_data(data):
         json.dump(prev_data, open(data_path, "w"), indent = 4, sort_keys=True)
 
 
-#######     For user:   ##########################################################################
-code_file_extensions = [".py", ".cpp"]                                                           #
-path_0 = "D:\\Projects\\Experiments\\Pendulum_signal_processing"                                 #
-data_path = "D:\\Projects\\Experiments\\Pendulum_signal_processing\\support\\project_stat.json"  #
-renewing_time = 120  # Seconds (2 min default)                                                  #
-offset_delay_time = 1200                                                                         #
-##################################################################################################
+#######     For user:   ##############################################################################
+code_file_extensions = [".py", ".cpp"]                                                               #
+path_0 = "D:\\Projects\\Experiments\\Pendulum_signal_processing"                                     #
+data_path = "D:\\Projects\\Experiments\\Pendulum_signal_processing\\src\\python\\project_stat.json"  #
+renewing_time = 120  # Seconds (2 min default)                                                       #
+offset_delay_time = 1200                                                                             #
+######################################################################################################
 
 total_sum = 0
 lines_sum = 0
