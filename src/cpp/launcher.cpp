@@ -5,11 +5,11 @@
 #include <conio.h>
 #include <windows.h>
 
-using namespace std;
+using namespace std;    
 
 
 #define mode 1 // 1 means different angles
-#define plot_results 1
+#define plot_results 0
 
 #define base_path L"D:\\Projects\\Experiments\\Pendulum_signal_processing\\res\\input\\Less_than_90\\*"
 #define norm_base_path_def "D:\\Projects\\Experiments\\Pendulum_signal_processing\\res\\input\\Less_than_90\\"
@@ -18,31 +18,6 @@ constexpr char* norm_base_path = norm_base_path_def;
 
 bool comp(pair<double, double> v1, pair<double, double> v2){
     return v1.first > v2.first;
-}
-
-
-void quickSort(vector<pair<double, double>> arr, int left, int right) {
-      int i = left, j = right;
-      double tmp;
-      double pivot = arr[(left + right) / 2].first;
-
-      while (i <= j) {
-            while (arr[i].first < pivot)
-                  i++;
-            while (arr[j].first > pivot)
-                  j--;
-            if (i <= j) {
-                  tmp = arr[i].first;
-                  arr[i].first = arr[j].first;
-                  arr[j].first = tmp;
-                  i++;
-                  j--;
-            }
-      };
-      if (left < j)
-            quickSort(arr, left, j);
-      if (i < right)
-            quickSort(arr, i, right);
 }
 
 
@@ -75,7 +50,8 @@ int main(){
     cout << endl;
     
     vector<pair<double, double>> angle_period;
-
+    vector<pair<double, double>> log_f;
+    line approx;
     for(int file_index = 0; file_index < paths.size(); file_index++){
         char* this_path = new char[100];
         this_path = paths[file_index];
@@ -88,17 +64,21 @@ int main(){
         cout << "Path: " << this_path << "; " << "Angle: " << angle << "; Period: " << period << endl;
         
         angle_period.push_back(data);
-
+        
         #else
         cout << "Path: " << this_path << "; " << "Period: ";
-        cout << get_period(this_path) << endl;
+        cout << get_period(this_path) * 2 << endl;
         #endif
     }
     #if mode
-    
+    log_f = logariphmate_func(angle_period);
+    approx = aproximate_points(log_f);
+    cout << "K: " << approx.k << endl;
     #if plot_results
     clear_plot();
-    add_to_plot(angle_period);
+    // add_to_plot(angle_period);
+    add_to_plot(log_f);
+    add_to_plot_line(approx, 0, 2, 0.001);
     show_sorted_plot();
     #endif
     #endif

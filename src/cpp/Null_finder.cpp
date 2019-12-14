@@ -31,10 +31,6 @@ vector<pair<double, double>> count_all_derivatives(vector<pair<double, double>> 
 }
 
 
-line aproximate_points(vector<pair<double, double>> &points){
-    line ret_line;
-    return ret_line;
-}
 
 double linear_interpolate(vector<pair<double, double>> &points, double x){
     int right_index;
@@ -124,12 +120,13 @@ double get_period(char* path){
 
     // Ploting:
     
-    
+    /*
     clear_plot();
     add_to_plot(derivative);
     add_to_plot(points);
     show_plot();
-
+    */
+   
     double average_period = (zeros.at(zeros.size() - 1) - zeros.at(0)) / (zeros.size() - 1);
     return average_period;
 }
