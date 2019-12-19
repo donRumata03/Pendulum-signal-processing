@@ -84,7 +84,7 @@ def delete_last_some_lines(p, n):
 
 
 def store_data(data):
-    global first_time
+    global first_time, delay_time
     now = datetime.now()
     if first_time:
         first_time = False

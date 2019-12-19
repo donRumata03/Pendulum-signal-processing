@@ -8,11 +8,11 @@
 using namespace std;    
 
 
-#define mode 1 // 1 means different angles
+#define mode 0 // 1 means different angles
 #define plot_results 0
 
-#define base_path L"D:\\Projects\\Experiments\\Pendulum_signal_processing\\res\\input\\Less_than_90\\*"
-#define norm_base_path_def "D:\\Projects\\Experiments\\Pendulum_signal_processing\\res\\input\\Less_than_90\\"
+#define base_path L"D:\\Projects\\Experiments\\Pendulum_signal_processing\\res\\input\\Less_than_30\\First\\*"
+#define norm_base_path_def "D:\\Projects\\Experiments\\Pendulum_signal_processing\\res\\input\\Less_than_30\\First\\"
 constexpr char* norm_base_path = norm_base_path_def;
 
 
@@ -66,14 +66,16 @@ int main(){
         angle_period.push_back(data);
         
         #else
-        cout << "Path: " << this_path << "; " << "Period: ";
-        cout << get_period(this_path) * 2 << endl;
+        cout << "Path: " << this_path << "; " << endl;
+        double per = get_period(this_path) * 2;
+        cout <<  "Period: " << per << endl;
         #endif
     }
     #if mode
     log_f = logariphmate_func(angle_period);
+    print_pair_vector(log_f);
     approx = aproximate_points(log_f);
-    cout << "K: " << approx.k << endl;
+    cout << "K: " << approx.k << " ; Result: " << exp(approx.k) << endl;
     #if plot_results
     clear_plot();
     // add_to_plot(angle_period);

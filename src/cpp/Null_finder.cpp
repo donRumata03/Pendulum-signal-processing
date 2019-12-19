@@ -117,7 +117,11 @@ double get_period(char* path){
     
     vector<pair<double, double>> derivative = count_all_derivatives(points, 100);
     vector<double> zeros = find_zeros(derivative);
+    vector<pair<double, double>> new_points;
 
+    for(int i = 0; i < zeros.size(); i++){
+    new_points.push_back(pair<double, double>(i, zeros.at(i)));
+    }
     // Ploting:
     
     /*
@@ -126,7 +130,8 @@ double get_period(char* path){
     add_to_plot(points);
     show_plot();
     */
-   
+
+    print_pair_vector(new_points);
     double average_period = (zeros.at(zeros.size() - 1) - zeros.at(0)) / (zeros.size() - 1);
     return average_period;
 }
